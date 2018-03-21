@@ -3,8 +3,6 @@ version: '2'
 services:
     db:
         image: mysql
-        volumes:
-            - "./.data/db:/var/lib/mysql"
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -21,14 +19,36 @@ services:
             - /usr/src/admin/node_modules
         ports:
             - 81:3000
-    php:
+    front:
         build:
-            context: php7-fpm
+            context: .
+            dockerfile: ./docker/php7-fpm/Dockerfile
             args:
                 TIMEZONE: ${TIMEZONE}
         volumes:
             - ${SYMFONY_APP_PATH}:/var/www/symfony
-            - ./logs/symfony:/var/www/symfony/app/logs
+        links:
+            - db
+        environment:
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
+            APP_ENV: ${APP_ENV}
+            APP_DEBUG: ${APP_DEBUG}
+            APP_SECRET: ${APP_SECRET}
+            CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN}
+            DATABASE_URL: ${DATABASE_URL}
+    api:
+        container_name: api
+        build:
+            context: .
+            dockerfile: ./docker/php7-fpm/Dockerfile
+            args:
+                TIMEZONE: ${TIMEZONE}
+        volumes:
+            - ${SYMFONY_API_PATH}:/var/www/symfony
         links:
             - db
         environment:
@@ -43,12 +63,16 @@ services:
             CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN}
             DATABASE_URL: ${DATABASE_URL}
     nginx:
-        build: nginx
+        build:
+          context: .
+          dockerfile: ./docker/nginx/Dockerfile
         ports:
             - 80:80
+            - 82:82
         volumes_from:
-            - php
+            - front
             - node
+            - api
         volumes:
             - ./logs/nginx/:/var/log/nginx
     phpmyadmin:
