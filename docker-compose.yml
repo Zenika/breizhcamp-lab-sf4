@@ -48,7 +48,7 @@ services:
             dockerfile: ./docker/php7-fpm/Dockerfile
             args:
                 TIMEZONE: ${TIMEZONE}
-                WORKDIR: /var/www/front
+                WORKDIR: /var/www/api
         volumes:
             - ${SYMFONY_API_PATH}:/var/www/api
         links:

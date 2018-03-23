@@ -11,5 +11,8 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production"
+    },
+    "dependencies": {
+        "webpack-notifier": "^1.6.0"
     }
 }
