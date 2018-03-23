@@ -1,6 +1,7 @@
 # See https://github.com/docker-library/php/blob/master/7.1/fpm/Dockerfile
 FROM php:7.2-fpm
 ARG TIMEZONE
+ARG WORKDIR
 
 
 RUN apt-get update && apt-get install -y \
@@ -40,4 +41,4 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 RUN echo 'alias sf4="php bin/console"' >> ~/.bashrc
 
-WORKDIR /var/www/symfony
+WORKDIR $WORKDIR
