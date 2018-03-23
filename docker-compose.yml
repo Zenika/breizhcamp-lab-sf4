@@ -26,7 +26,7 @@ services:
             args:
                 TIMEZONE: ${TIMEZONE}
         volumes:
-            - ${SYMFONY_APP_PATH}:/var/www/symfony
+            - ${SYMFONY_APP_PATH}:/var/www/front
         links:
             - db
         environment:
@@ -48,7 +48,7 @@ services:
             args:
                 TIMEZONE: ${TIMEZONE}
         volumes:
-            - ${SYMFONY_API_PATH}:/var/www/symfony
+            - ${SYMFONY_API_PATH}:/var/www/api
         links:
             - db
         environment:
