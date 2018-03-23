@@ -1,0 +1,138 @@
+@font-face {
+    font-family: "bfFont";
+    src: url('fonts/BTTF.ttf') format('truetype');
+}
+@font-face {
+    font-family: "digitalFont";
+    src: url('fonts/DS-DIGII.ttf') format('truetype');
+}
+
+p {
+    font-family: "bfFont";
+}
+
+body{
+    background-image: url('img/city.jpg');
+    margin: 7% 0 0 0;
+}
+
+#board{
+    background-image: url('img/scratches-wallpaper-1920x1080.jpg');
+    //background-color: #59595a;
+	width:85%;
+	margin: 0 auto;
+}
+
+#travel {
+    margin: auto;
+    width: 25vw;
+    margin-top: 3%;
+}
+
+#buttonTravel{
+    font-family: "bfFont";
+    cursor: pointer;
+}
+
+.etiquette{
+    background-color: #800000;
+    color: #e6e6e6;
+    font-weight: bold;
+    height:10v;
+    margin: 0 auto;
+    font-size: 3vh;
+    display: inline-block;
+    padding: 0 5%;
+}
+
+td{
+text-align:center;
+}
+
+.redDate{
+text-align:center;
+color: #d62413;
+}
+.greenDate{
+text-align:center;
+color: #7bf75c;
+}
+.ylowDate{
+text-align:center;
+color: rgb(230, 255, 9);
+}
+
+.time{
+color: #e6e6e6;
+background-color: black;
+text-align:center;
+margin: 0 auto;
+font-size: 2vw;
+display: initial;
+padding: 0% 1% 0% 1%;
+}
+
+.led-green {
+    margin: 0 auto;
+    width: 2vh;
+    height: 2vh;
+    background-color: #ABFF00;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #a9fc00 0 -1px 9px, #89FF00 0 2px 12px;
+}
+
+.led-grey {
+    margin: 0 auto;
+    width: 2vh;
+    height: 2vh;
+    background-color: rgb(31, 31, 29);
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #252525 0 -1px 9px, #ddd8d8 0 2px 12px;
+}
+
+#twoPointsTop{
+    margin:0 0 15% 0;
+}
+#twoPointsBot{
+    margin:40% 0 0 0;
+}
+
+.petit{
+	width:2%;
+}
+
+.colorText{
+    background-color: black;
+    font-family: "digitalFont";
+    width: 76%;
+    padding: 0 6%;
+    height: 100%;
+    margin: auto;
+    font-size: 13vh;
+    text-align: center;
+}
+
+.trText{
+    height: 10%;
+}
+
+.gradient {
+    font-size: 72px;
+    display: inline-block;
+    background: rgb(255, 255, 255);
+    color: black;
+    position: relative;
+  }
+  
+  .gradient::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: -webkit-linear-gradient(left, rgb(236, 21, 21), rgb(255, 222, 73));
+    background: linear-gradient(180deg, rgb(236, 21, 21), rgb(218, 222, 73));
+    content: '';
+    display: block;
+    mix-blend-mode: screen;
+  }
