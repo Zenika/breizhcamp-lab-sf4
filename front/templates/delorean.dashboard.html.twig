@@ -6,6 +6,7 @@
 
 {% block body %}
 
+<div id="test">
 <table id="board">
     <col style="width:18%">
     <col style="width:18%">
@@ -22,9 +23,9 @@
         <td class ="ampm" rowspan="2">
             <div style="display:block;">
                 <div><div class="etiquette">AM</div></div>
-                <div class="led-green"></div>
+                <div class="{{destination_time|date("A") == 'AM' ? 'led-green' : 'led-grey'}}"></div>
                 <div><div class="etiquette">PM</div></div>
-                <div class="led-grey"></div>
+                <div class="{{destination_time|date("A") == 'PM' ? 'led-green' : 'led-grey'}}"></div>
             </div
         </td>
         <td class="td4"><div class="etiquette">HOURS</div></td>
@@ -52,9 +53,9 @@
         <td class ="ampm" rowspan="2">
             <div style="display:block;">
                 <div><div class="etiquette">AM</div></div>
-                <div class="led-green"></div>
+                <div class="{{present_time|date("A") == 'AM' ? 'led-green' : 'led-grey'}}"></div>
                 <div><div class="etiquette">PM</div></div>
-                <div class="led-grey"></div>
+                <div class="{{present_time|date("A") == 'PM' ? 'led-green' : 'led-grey'}}"></div>
             </div
         </td>
         <td class="td4"><div class="etiquette">HOURS</div></td>
@@ -65,11 +66,11 @@
         <td class="greenDate"><div class="colorText">{{ (present_time|date("F"))[:3] }}</div></td>
         <td class="greenDate"><div class="colorText">{{ present_time|date("d") }}</div></td>
         <td class="greenDate"><div class="colorText">{{ present_time|date("Y") }}</div></td>
-        <td class="greenDate"><div class="colorText">{{ present_time|date("H") }}</div></td>
+        <td class="greenDate"><div class="colorText">{{ present_time|date("h") }}</div></td>
         <td class="deuxpoints">
             <div style="display:block;">
                 <div class="led-green" style="margin:0 0 15% 0"></div>
-                <div class="led-green"style="margin:40% 0 0 0"></div>
+                <div class="led-green" style="margin:40% 0 0 0"></div>
             </div>
         </td>
         <td class="greenDate"><div class="colorText">{{ present_time|date("i") }}</div></td>
@@ -82,9 +83,9 @@
         <td class ="ampm" rowspan="2">
             <div style="display:block;">
                 <div><div class="etiquette">AM</div></div>
-                <div class="led-green"></div>
+                <div class="{{last_time_departed|date("A") == 'AM' ? 'led-green' : 'led-grey'}}"></div>
                 <div><div class="etiquette">PM</div></div>
-                <div class="led-grey"></div>
+                <div class="{{last_time_departed|date("A") == 'PM' ? 'led-green' : 'led-grey'}}"></div>
             </div
         </td>
         <td><div class="etiquette">HOURS</div></td>
@@ -95,7 +96,7 @@
         <td class="ylowDate"><div class="colorText">{{ (last_time_departed|date("F"))[:3] }}</div></td>
         <td class="ylowDate"><div class="colorText">{{ last_time_departed|date("d") }}</div></td>
         <td class="ylowDate"><div class="colorText">{{ last_time_departed|date("Y") }}</div></td>
-        <td class="ylowDate"><div class="colorText">{{ last_time_departed|date("H") }}</div></td>
+        <td class="ylowDate"><div class="colorText">{{ last_time_departed|date("h") }}</div></td>
         <td class="deuxpoints">
             <div style="display:block;">
                 <div class="led-green" style="margin:0 0 15% 0"></div>
@@ -107,5 +108,6 @@
     <tr><td colspan="7" class="txtTime"><div class="time">LAST TIME DEPARTED</div></td></tr>
 
 </table>
-
+<div id="travel"><input type="button" value="Voyage" id="buttonTravel" onclick='window.location.href="{{path('app_delorean_trip', {destinationTime: destination_time, presentTime: present_time, lastTime: last_time_departed})}}"'></input>
+</div>
 {% endblock %}

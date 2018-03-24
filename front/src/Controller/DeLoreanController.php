@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class DeLoreanController extends Controller
 {
@@ -24,17 +25,38 @@ class DeLoreanController extends Controller
     }
 
     /**
+     * @Route("/miaou")
+     */
+    public function change(Request $request)
+    {
+
+      $presentTime = (int)$request->request->get('present_time');
+      //$destinationTime = (int)$request->request->get('destination_time');
+      //$lastTimeDeparted = (int)$request->request->get('last_time_departed');
+
+      return $this->render('delorean.dashboard.html.twig',
+      [
+        'destination_time' => 0,
+        'present_time' => $presentTime+1,
+        'last_time_departed'=>0
+
+      ]
+    );
+    }
+
+    /**
      * @Route("/trip")
      */
     public function trip(Request $request)
     {
-      $req = $this->get('request')->request;
-      $destinationTime = $req->get('destination_time');
-      $presentTime = $req->get('present_time');
-      $lastTimeDeparted = $req->get('last_time');
+      $query = $request->query;
+      $destinationTime = $query->get('destinationTime');
+      
+      $presentTime = $query->get('presentTime');
+      $lastTimeDeparted = $query->get('lastTime');
         return $this->render('delorean.dashboard.html.twig',
         [
-          'destination_time' => $presentTime,
+          'destination_time' => $destinationTime,
           'present_time' => $destinationTime,
           'last_time_departed'=>$presentTime
 

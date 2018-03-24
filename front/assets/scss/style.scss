@@ -29,10 +29,7 @@ body{
     margin-top: 3%;
 }
 
-#buttonTravel{
-    font-family: "bfFont";
-    cursor: pointer;
-}
+
 
 .etiquette{
     background-color: #800000;
@@ -104,7 +101,6 @@ padding: 0% 1% 0% 1%;
 .colorText{
     background-color: black;
     font-family: "digitalFont";
-    width: 76%;
     padding: 0 6%;
     height: 100%;
     margin: auto;
@@ -114,25 +110,17 @@ padding: 0% 1% 0% 1%;
 
 .trText{
     height: 10%;
+    width:17vh;
 }
 
-.gradient {
+
+#buttonTravel{
+    font-family: "bfFont";
+    cursor: pointer;
     font-size: 72px;
-    display: inline-block;
-    background: rgb(255, 255, 255);
-    color: black;
+    display: inline-block;    
     position: relative;
-  }
-  
-  .gradient::before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: -webkit-linear-gradient(left, rgb(236, 21, 21), rgb(255, 222, 73));
-    background: linear-gradient(180deg, rgb(236, 21, 21), rgb(218, 222, 73));
-    content: '';
-    display: block;
-    mix-blend-mode: screen;
+    color: #0e1957;
+    position: relative;
+    background: linear-gradient(180deg, #ec1515, #dade49);
   }
