@@ -1,6 +1,8 @@
 version: '2'
 
+
 services:
+
     db:
         image: mysql
         environment:
@@ -20,6 +22,8 @@ services:
         ports:
             - 81:3000
     front:
+    #    networks:
+    #      - sf
         build:
             context: .
             dockerfile: ./docker/php7-fpm/Dockerfile
@@ -28,8 +32,9 @@ services:
                 WORKDIR: /var/www/front
         volumes:
             - ${SYMFONY_APP_PATH}:/var/www/front
-        links:
-            - db
+   #     links:
+   #         - db
+            #- nginx
         environment:
             DB_HOST: ${DB_HOST}
             DB_PORT: ${DB_PORT}
@@ -50,8 +55,9 @@ services:
                 WORKDIR: /var/www/api
         volumes:
             - ${SYMFONY_API_PATH}:/var/www/api
-        links:
-            - db
+  #      links:
+  #          - db
+
         environment:
             DB_HOST: ${DB_HOST}
             DB_PORT: ${DB_PORT}
@@ -64,6 +70,8 @@ services:
             CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN}
             DATABASE_URL: ${DATABASE_URL}
     nginx:
+  #      networks:
+  #        - sf
         build:
           context: .
           dockerfile: ./docker/nginx/Dockerfile
@@ -78,7 +86,9 @@ services:
             - ./logs/nginx/:/var/log/nginx
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
-        links:
-            - db
+ #       links:
+ #           - db
         ports:
             - 8080:80
+#networks:
+#  sf:
