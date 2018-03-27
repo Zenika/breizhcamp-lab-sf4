@@ -42,9 +42,8 @@ services:
             CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN}
             DATABASE_URL: ${DATABASE_URL}
     api:
-        container_name: api
         build:
-            context: .
+            context: ./api
             dockerfile: ./docker/php7-fpm/Dockerfile
             args:
                 TIMEZONE: ${TIMEZONE}
