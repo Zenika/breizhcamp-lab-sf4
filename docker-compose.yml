@@ -48,7 +48,7 @@ services:
             DATABASE_URL: ${DATABASE_URL}
     api:
         build:
-            context: ./api
+            context: .
             dockerfile: ./docker/php7-fpm/Dockerfile
             args:
                 TIMEZONE: ${TIMEZONE}
