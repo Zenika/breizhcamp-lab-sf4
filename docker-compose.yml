@@ -1,0 +1,94 @@
+version: '2'
+
+
+services:
+
+    db:
+        image: mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    node:
+        build:
+            context: ./admin
+            dockerfile: ./Dockerfile
+        env_file:
+            - ./admin/.env
+        volumes:
+            - ./admin:/usr/src/admin:rw,cached
+            - /usr/src/admin/node_modules
+        ports:
+            - 81:3000
+    front:
+    #    networks:
+    #      - sf
+        build:
+            context: .
+            dockerfile: ./docker/php7-fpm/Dockerfile
+            args:
+                TIMEZONE: ${TIMEZONE}
+                WORKDIR: /var/www/front
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/front
+   #     links:
+   #         - db
+            #- nginx
+        environment:
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
+            APP_ENV: ${APP_ENV}
+            APP_DEBUG: ${APP_DEBUG}
+            APP_SECRET: ${APP_SECRET}
+            CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN}
+            DATABASE_URL: ${DATABASE_URL}
+    api:
+        build:
+            context: .
+            dockerfile: ./docker/php7-fpm/Dockerfile
+            args:
+                TIMEZONE: ${TIMEZONE}
+                WORKDIR: /var/www/api
+        volumes:
+            - ${SYMFONY_API_PATH}:/var/www/api
+  #      links:
+  #          - db
+
+        environment:
+            DB_HOST: ${DB_HOST}
+            DB_PORT: ${DB_PORT}
+            DB_NAME: ${DB_NAME}
+            DB_USER: ${DB_USER}
+            DB_PASSWORD: ${DB_PASSWORD}
+            APP_ENV: ${APP_ENV}
+            APP_DEBUG: ${APP_DEBUG}
+            APP_SECRET: ${APP_SECRET}
+            CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN}
+            DATABASE_URL: ${DATABASE_URL}
+    nginx:
+  #      networks:
+  #        - sf
+        build:
+          context: .
+          dockerfile: ./docker/nginx/Dockerfile
+        ports:
+            - 80:80
+            - 82:82
+        volumes_from:
+            - front
+            - node
+            - api
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+ #       links:
+ #           - db
+        ports:
+            - 8080:80
+#networks:
+#  sf:
